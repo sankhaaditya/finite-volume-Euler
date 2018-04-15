@@ -1,0 +1,97 @@
+{
+  "DOMAIN": {
+    "LENGTH": 1.0,
+    "CELL_COUNT": 100
+  },
+  "BC": {
+	"LEFT": 0,
+	"RIGHT": 0
+  },
+  "IC": [
+	{
+		"START": 1,
+		"END": 50,
+		"DENS": 1.0,
+		"VELO": 0.0,
+		"PRES": 1.0
+	},
+	{
+		"START": 51,
+		"END": 100,
+		"DENS": 0.125,
+		"VELO": 0.0,
+		"PRES": 0.1
+	}
+  ],
+  "TIME_EVAL": 0.25,
+  "GAMA": 1.4,
+  "CFL_COEFFICIENT": 0.9,
+  "RIEMANN": {
+	"SOLVER": 0,
+	"PRESSURE_APPROX": "TR",
+	"TOL": 0.000001
+  },
+  "TEST_RIEMANN_INPUT": {
+	"TEST_CASE": "SOD",
+	"SOD": {
+		"DENS_L": 1.0,
+		"VELO_L": 0.0,
+		"PRES_L": 1.0,
+		"DENS_R": 0.125,
+		"VELO_R": 0.0,
+		"PRES_R": 0.1,
+		"GAMA": 1.4,
+		"DOMAIN_LENGTH": 1.0,
+		"DIVISIONS": 100,
+		"TIME_EVAL": 0.25
+	},
+	"123": {
+		"DENS_L": 1.0,
+		"VELO_L": -2.0,
+		"PRES_L": 0.4,
+		"DENS_R": 1.0,
+		"VELO_R": 2.0,
+		"PRES_R": 0.4,
+		"GAMA": 1.4,
+		"DOMAIN_LENGTH": 1.0,
+		"DIVISIONS": 100,
+		"TIME_EVAL": 0.15
+	},
+	"BLAST_LEFT": {
+		"DENS_L": 1.0,
+		"VELO_L": 0.0,
+		"PRES_L": 1000.0,
+		"DENS_R": 1.0,
+		"VELO_R": 0.0,
+		"PRES_R": 0.1,
+		"GAMA": 1.4,
+		"DOMAIN_LENGTH": 1.0,
+		"DIVISIONS": 100,
+		"TIME_EVAL": 0.012
+	},
+	"BLAST_RIGHT": {
+		"DENS_L": 1.0,
+		"VELO_L": 0.0,
+		"PRES_L": 0.1,
+		"DENS_R": 1.0,
+		"VELO_R": 0.0,
+		"PRES_R": 100.0,
+		"GAMA": 1.4,
+		"DOMAIN_LENGTH": 1.0,
+		"DIVISIONS": 100,
+		"TIME_EVAL": 0.035
+	},
+	"BLAST_2": {
+		"DENS_L": 5.99924,
+		"VELO_L": 19.5975,
+		"PRES_L": 460.894,
+		"DENS_R": 5.99924,
+		"VELO_R": -6.19633,
+		"PRES_R": 46.0950,
+		"GAMA": 1.4,
+		"DOMAIN_LENGTH": 1.0,
+		"DIVISIONS": 100,
+		"TIME_EVAL": 0.035
+	}
+  }
+}
