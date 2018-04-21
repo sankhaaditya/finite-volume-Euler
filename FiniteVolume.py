@@ -103,3 +103,47 @@ def update(cells, interfaces, shadowCells, dx, time_step):
         cells[shadowCells[i]].p = cells[cells[shadowCells[i]].shadow].p
 
     return cells
+
+
+def run(domain_length, cell_count, ic, bc, time_eval):
+    
+    # Initialize list of cells with values
+
+    cells, interfaces, shadowCells = initCellsInterfaces(domain_length, cell_count, ic, bc)
+
+    dx = domain_length/cell_count
+
+
+    # Starting time marching
+
+    t = 0.0
+
+    done = False
+
+    while True:
+
+        # Solve Riemann problem at each interface
+
+        interfaces, S_max = solveRiemann(cells, interfaces)
+
+        # Calculating time step
+
+        time_step = calcTimeStep(dx, S_max)
+
+        if t+time_step >= time_eval:
+
+            time_step = time_eval-t
+
+            done = True
+
+        # Update cells to next time
+
+        cells = update(cells, interfaces, shadowCells, dx, time_step)
+
+        t += time_step
+
+        if done:
+
+            break
+
+    return cells

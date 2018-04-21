@@ -5,8 +5,8 @@ import Config as cf
 with open('config.json', 'r') as f:
     config = json.load(f)
 
-pressureApprox = config['RIEMANN']['PRESSURE_APPROX'] # Pressure Approximation Method
-TOL = config['RIEMANN']['TOL'] # Tolerence for error in pressure guessing
+pressureApprox = config['CONSTANTS']['RIEMANN']['PRESSURE_APPROX'] # Pressure Approximation Method
+TOL = config['CONSTANTS']['RIEMANN']['TOL'] # Tolerence for error in pressure guessing
 
 
 

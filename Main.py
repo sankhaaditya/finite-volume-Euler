@@ -9,60 +9,26 @@ import PlotUtil as pu
 with open('config.json', 'r') as f:
     config = json.load(f)
 
-length = config['DOMAIN']['LENGTH'] # Length of Domain
+test_inputs = config['MAIN']
 
-cell_count = config['DOMAIN']['CELL_COUNT'] # Cell count
+domain_length = test_inputs['DOMAIN_LENGTH']
+cell_count = test_inputs['CELL_COUNT']
 
-bc = (config['BC']['LEFT'], config['BC']['RIGHT'])  # Boundary Conditions
+bc = (config['MAIN']['BC']['LEFT'], config['MAIN']['BC']['RIGHT'])
 
-ic = np.zeros([np.size(config['IC']), 5])   # Initial Conditions
-for i in range(0, np.size(config['IC'])):
-    ic[i][0] = config['IC'][i]['START']
-    ic[i][1] = config['IC'][i]['END']
-    ic[i][2] = config['IC'][i]['DENS']
-    ic[i][3] = config['IC'][i]['VELO']
-    ic[i][4] = config['IC'][i]['PRES']
+ic = np.zeros([np.size(config['MAIN']['IC']), 5])
+for i in range(0, np.size(config['MAIN']['IC'])):
+    ic[i][0] = config['MAIN']['IC'][i]['START']
+    ic[i][1] = config['MAIN']['IC'][i]['END']
+    ic[i][2] = config['MAIN']['IC'][i]['DENS']
+    ic[i][3] = config['MAIN']['IC'][i]['VELO']
+    ic[i][4] = config['MAIN']['IC'][i]['PRES']
 
-time_eval = config['TIME_EVAL']
+time_eval = config['MAIN']['TIME_EVAL']
 
+cells = fv.run(domain_length, cell_count, ic, bc, time_eval)
 
-# Initialize list of cells with values
-
-cells, interfaces, shadowCells = fv.initCellsInterfaces(length, cell_count, ic, bc)
-
-dx = length/cell_count
+pu.plot(cells, domain_length/cell_count)
 
 
-# Starting time marching
 
-t = 0.0
-
-done = False
-
-while True:
-
-    # Solve Riemann problem at each interface
-
-    interfaces, S_max = fv.solveRiemann(cells, interfaces)
-
-    # Calculating time step
-
-    time_step = fv.calcTimeStep(dx, S_max)
-
-    if t+time_step >= time_eval:
-
-        time_step = time_eval-t
-
-        done = True
-
-    # Update cells to next time
-
-    cells = fv.update(cells, interfaces, shadowCells, dx, time_step)
-
-    t += time_step
-
-    if done:
-
-        break
-
-pu.plot(cells, dx)

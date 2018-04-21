@@ -5,21 +5,21 @@ import TestRiemann as tr
 
 factor = 10
 
-def plot(cells, dx):    # Assuming 1st and last cells are shadow, CHECK LATER
+def plot(cells, dx, plot_factor, x_exact, d_exact, u_exact, p_exact):    # Assuming 1st and last cells are shadow, CHECK LATER
     
-    x = np.zeros([(len(cells)-2)*factor])
+    x = np.zeros([(len(cells)-2)*plot_factor])
 
-    d = np.zeros([(len(cells)-2)*factor])
+    d = np.zeros([(len(cells)-2)*plot_factor])
 
-    u = np.zeros([(len(cells)-2)*factor])
+    u = np.zeros([(len(cells)-2)*plot_factor])
 
-    p = np.zeros([(len(cells)-2)*factor])
+    p = np.zeros([(len(cells)-2)*plot_factor])
 
     pointer = 0.0
 
     for i in range(0, len(cells)-2):
 
-        for j in range(0, factor):
+        for j in range(0, plot_factor):
 
             x[i*factor+j] = pointer
 
@@ -29,9 +29,7 @@ def plot(cells, dx):    # Assuming 1st and last cells are shadow, CHECK LATER
 
             p[i*factor+j] = cells[i+1].p
 
-            pointer += dx/factor
-
-    x_exact, d_exact, u_exact, p_exact = tr.test()
+            pointer += dx/plot_factor
       
     plt.subplot(311)
 
