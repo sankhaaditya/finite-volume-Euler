@@ -41,8 +41,10 @@ ic[1][2] = IC_r['DENS']
 ic[1][3] = IC_r['VELO']
 ic[1][4] = IC_r['PRES']
 
-cells = fv.run(domain_length, cell_count, ic, bc, time_eval)
+if __name__ == '__main__':
 
-x, d, u, p = tr.test(domain_length, cell_count*plot_factor, IC_l, IC_r, time_eval)
+    cells = fv.run(domain_length, cell_count, ic, bc, time_eval)
 
-pu.plot(cells, domain_length/cell_count, plot_factor, x, d, u, p)
+    x, d, u, p = tr.test(domain_length, cell_count*plot_factor, IC_l, IC_r, time_eval)
+
+    pu.plot(cells, domain_length/cell_count, plot_factor, x, d, u, p)

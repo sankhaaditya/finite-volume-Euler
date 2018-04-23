@@ -27,7 +27,7 @@
   "TEST": {
 	"DOMAIN_LENGTH": 1.0,
 	"CELL_COUNT": 100,
-	"TEST_CASE": "SOD",
+	"TEST_CASE": "BLAST_2",
 	"SOD": {
 		"IC": {
 			"LEFT": {
@@ -112,6 +112,7 @@
 		"PRESSURE_APPROX": "TR",
 		"TOL": 0.000001
 	  },
-	  "PLOT_FACTOR": 10
+	  "PLOT_FACTOR": 10,
+	  "PARALLEL": "Off"
   }
 }

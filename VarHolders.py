@@ -90,3 +90,13 @@ class Interface(VarHolder):
         F_3 = self.u*(self.d*(0.5*self.u**2+self.getInternalEnergy())+self.p)
 
         return F_1, F_2, F_3
+
+
+    def setS(self, S):
+
+        self.S = S
+
+
+    def getS(self):
+
+        return self.S

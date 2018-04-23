@@ -26,9 +26,11 @@ for i in range(0, np.size(config['MAIN']['IC'])):
 
 time_eval = config['MAIN']['TIME_EVAL']
 
+plot_factor = config['CONSTANTS']['PLOT_FACTOR']
+
 cells = fv.run(domain_length, cell_count, ic, bc, time_eval)
 
-pu.plot(cells, domain_length/cell_count)
+pu.plot(cells, domain_length/cell_count, plot_factor)
 
 
 

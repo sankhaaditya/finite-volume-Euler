@@ -3,10 +3,8 @@ import matplotlib.pyplot as plt
 import TestRiemann as tr
 
 
-factor = 10
+def extract(cells, dx, plot_factor):
 
-def plot(cells, dx, plot_factor, x_exact, d_exact, u_exact, p_exact):    # Assuming 1st and last cells are shadow, CHECK LATER
-    
     x = np.zeros([(len(cells)-2)*plot_factor])
 
     d = np.zeros([(len(cells)-2)*plot_factor])
@@ -21,19 +19,28 @@ def plot(cells, dx, plot_factor, x_exact, d_exact, u_exact, p_exact):    # Assum
 
         for j in range(0, plot_factor):
 
-            x[i*factor+j] = pointer
+            x[i*plot_factor+j] = pointer
 
-            d[i*factor+j] = cells[i+1].d
+            d[i*plot_factor+j] = cells[i+1].d
 
-            u[i*factor+j] = cells[i+1].u
+            u[i*plot_factor+j] = cells[i+1].u
 
-            p[i*factor+j] = cells[i+1].p
+            p[i*plot_factor+j] = cells[i+1].p
 
             pointer += dx/plot_factor
+
+    return x, d, u, p
+
+
+def plot(cells, dx, plot_factor, x_exact=None, d_exact=None, u_exact=None, p_exact=None):    # Assuming 1st and last cells are shadow, CHECK LATER
+    
+    x, d, u, p = extract(cells, dx, plot_factor)
       
     plt.subplot(311)
 
-    plt.plot(x_exact, d_exact, label='Analytical')
+    if d_exact != None:
+
+        plt.plot(x_exact, d_exact, label='Analytical')
 
     plt.plot(x, d, label='FV: '+str(len(cells)-2)+' cells')
 
@@ -41,7 +48,9 @@ def plot(cells, dx, plot_factor, x_exact, d_exact, u_exact, p_exact):    # Assum
 
     plt.subplot(312)
 
-    plt.plot(x_exact, u_exact, label='Analytical')
+    if u_exact != None:
+
+        plt.plot(x_exact, u_exact, label='Analytical')
 
     plt.plot(x, u, label='FV: '+str(len(cells)-2)+' cells')
 
@@ -49,7 +58,9 @@ def plot(cells, dx, plot_factor, x_exact, d_exact, u_exact, p_exact):    # Assum
 
     plt.subplot(313)
 
-    plt.plot(x_exact, p_exact, label='Analytical')
+    if p_exact != None:
+
+        plt.plot(x_exact, p_exact, label='Analytical')
 
     plt.plot(x, p, label='FV: '+str(len(cells)-2)+' cells')
 
